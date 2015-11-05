@@ -30,7 +30,10 @@ MongoClient.connect(url, function (err, db) {
     servers.forEach(function (server)  {
         var socket = zmq.socket('sub'),
         address = makeConnectionString(server);
-
+        
+        socket.plain_username = 'stats';
+        socket.plain_password = server.password;
+        
         socket.connect(address);
         socket.subscribe('');
         sockets.push(socket);
